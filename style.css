@@ -25,22 +25,77 @@
     padding-left:3%;
     padding-top: 2%;
 }
-#selection{
+.accordion{
     display: inline-block;
-    width: 15%;
-    height: 400px;
+    width: 20%;
+    height: 100%;
     border-style: solid;
     margin-top: 3px;
+    vertical-align:top;
 
 }
+.accordion .container {
+    position: relative;
+    margin: 2px 2px;
+  }
+  
+  /* Positions the labels relative to the .container. Adds padding to the top and bottom and increases font size. Also makes its cursor a pointer */
+  
+  .accordion .label {
+    position: relative;
+    padding: 10px 0;
+    font-size: 20px;
+    color: black;
+    cursor: pointer;
+  }
 
-#graph{
+  .accordion .label::before {
+    content: '+';
+    color: black;
+    position: absolute;
+    top: 50%;
+    right: 5px;
+    font-size: 10px;
+    transform: translateY(-50%);
+  }
+  
+  /* Hides the content (height: 0), decreases font size, justifies text and adds transition */
+  
+  .accordion .content {
+    position: relative;
+    background: white;
+    height: 0;
+    font-size: 15px;
+    text-align: justify;
+    width:80%;
+    overflow: hidden;
+    transition: 0.5s;
+  }
+  
+  /* Unhides the content part when active. Sets the height */
+
+.accordion .container.active .content {
+    height: 30px;
+  }
+  
+  /* Changes from plus sign to negative sign once active */
+  
+  .accordion .container.active .label::before {
+    content: '-';
+    font-size: 20px;
+  }
+
+  .graph{
     display: inline-block;
     position: relative;
     border-style: solid;
     left: 5%;
-    width: 75%;
+    width: 70%;
     height: 400px;
     margin-top: 3px;
 
 }
+
+
+  
+ 
