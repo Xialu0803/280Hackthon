@@ -9,7 +9,7 @@ const db = mysql.createConnection({
     user: 'root',
     password: '836353',
     database: '280hackathon'
-})
+});
 
 //connect
 db.connect((err) => {
@@ -31,9 +31,8 @@ app.get('/getgdps', (req, res) => {
             res.send(JSON.stringify(results));
         }
     })
-}
+});
 
-)
 app.listen('3000', () => {
     console.log('Sever started on port 3000');
 });
