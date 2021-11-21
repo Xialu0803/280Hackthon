@@ -23,7 +23,7 @@ db.connect((err) => {
 //getGDP
 app.get('/getgdps', (req, res) => {
     console.log(`Received get_records request ${req}`);
-    let sql = 'SELECT * FROM gdp';
+    let sql = 'SELECT `GDP (current US$) India` FROM gdp';
     let query = db.query(sql, (err, results) => {
         if (err) {
             console.log(err);
@@ -31,7 +31,7 @@ app.get('/getgdps', (req, res) => {
         else {
             res.header("Access-Control-Allow-Origin", "*");
             res.send(JSON.stringify(results));
-            //console.log(results)
+            console.log(results)
         }
     })
 });

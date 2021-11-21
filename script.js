@@ -11,7 +11,7 @@ $(function () {
         range: true,
         min: 1990,
         max: 2020,
-        values: [1990, 2020],
+        values: [1960, 2020],
         slide: function (event, ui) {
             $("#amount").val(+ ui.values[0] + " - " + ui.values[1]);
         }
@@ -35,64 +35,61 @@ function drop(ev) {
     ev.target.appendChild(document.getElementById(data).cloneNode(true));
 }
 
-Highcharts.getJSON(
-    'http://localhost:3000/getgdps',
-    function (data) {
+Highcharts.getJSON('http://localhost:3000/getgdps', function (data) {
 
-        Highcharts.chart('container', {
-            chart: {
-                zoomType: 'x'
-            },
+    Highcharts.chart('chart', {
+
+        title: {
+            text: 'GDP Current USD of Each Year'
+        },
+
+        yAxis: {
             title: {
-                text: 'USD to EUR exchange rate over time'
-            },
-            subtitle: {
-                text: document.ontouchstart === undefined ?
-                    'Click and drag in the plot area to zoom in' : 'Pinch the chart to zoom in'
-            },
-            xAxis: {
-                type: 'datetime'
-            },
-            yAxis: {
-                title: {
-                    text: 'Exchange rate'
-                }
-            },
-            legend: {
-                enabled: false
-            },
-            plotOptions: {
-                area: {
-                    fillColor: {
-                        linearGradient: {
-                            x1: 0,
-                            y1: 0,
-                            x2: 0,
-                            y2: 1
-                        },
-                        stops: [
-                            [0, Highcharts.getOptions().colors[0]],
-                            [1, Highcharts.color(Highcharts.getOptions().colors[0]).setOpacity(0).get('rgba')]
-                        ]
-                    },
-                    marker: {
-                        radius: 2
-                    },
-                    lineWidth: 1,
-                    states: {
-                        hover: {
-                            lineWidth: 1
-                        }
-                    },
-                    threshold: null
-                }
-            },
+                text: 'GDP Current USD'
+            }
+        },
 
-            series: [{
-                type: 'area',
-                name: 'USD to EUR',
-                data: data
+        xAxis: {
+            accessibility: {
+                rangeDescription: 'Range: 1960 to 2020'
+            }
+        },
+
+        legend: {
+            layout: 'vertical',
+            align: 'right',
+            verticalAlign: 'middle'
+        },
+
+        plotOptions: {
+            series: {
+                label: {
+                    connectorAllowed: false
+                },
+                pointStart: 1960
+            }
+        },
+
+        series: [{
+            name: 'GDP',
+            data: data
+        }],
+
+        responsive: {
+            rules: [{
+                condition: {
+                    maxWidth: 500
+                },
+                chartOptions: {
+                    legend: {
+                        layout: 'horizontal',
+                        align: 'center',
+                        verticalAlign: 'bottom'
+                    }
+                }
             }]
-        });
-    }
+        }
+
+    });
+}
 );
