@@ -78,7 +78,7 @@ Highcharts.getJSON('http://localhost:3000/getgdps', function (data) {
         responsive: {
             rules: [{
                 condition: {
-                    maxWidth: 500
+                    maxWidth: 300
                 },
                 chartOptions: {
                     legend: {

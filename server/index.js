@@ -23,15 +23,19 @@ db.connect((err) => {
 //getGDP
 app.get('/getgdps', (req, res) => {
     console.log(`Received get_records request ${req}`);
-    let sql = 'SELECT `GDP (current US$) India` FROM gdp';
+    let sql = 'SELECT India FROM gdp';
+    const result = [];
     let query = db.query(sql, (err, results) => {
         if (err) {
             console.log(err);
         }
         else {
             res.header("Access-Control-Allow-Origin", "*");
-            res.send(JSON.stringify(results));
-            console.log(results)
+            for (let i = 0; i < results.length; i++) {
+                result[i] = results[i].India;
+            }
+            res.send(JSON.stringify(result));
+            var rows = JSON.parse(JSON.stringify(result[0]));
         }
     })
 });
