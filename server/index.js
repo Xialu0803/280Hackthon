@@ -7,13 +7,13 @@ const app = express();
 const db = mysql.createConnection({
     host: 'localhost',
     user: 'root',
-    password: '836353',
-    database: '280hackathon'
+    password: '123456',
+    database: 'hackzhon-gdp'
 });
 
 //connect
 db.connect((err) => {
-    if(err){
+    if (err) {
         throw err;
     }
     console.log('MySql Connected...');
@@ -22,13 +22,16 @@ db.connect((err) => {
 
 //getGDP
 app.get('/getgdps', (req, res) => {
+    console.log(`Received get_records request ${req}`);
     let sql = 'SELECT * FROM gdp';
     let query = db.query(sql, (err, results) => {
-        if(err){
+        if (err) {
             console.log(err);
         }
-        else{
+        else {
+            res.header("Access-Control-Allow-Origin", "*");
             res.send(JSON.stringify(results));
+            //console.log(results)
         }
     })
 });
