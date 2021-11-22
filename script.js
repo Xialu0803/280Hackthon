@@ -9,9 +9,9 @@ for (i = 0; i < accordion.length; i++) {
 $(function () {
     $("#slider-range").slider({
         range: true,
-        min: 1990,
+        min: 1920,
         max: 2020,
-        values: [1960, 2020],
+        values: [1920, 2020],
         slide: function (event, ui) {
             $("#amount").val(+ ui.values[0] + " - " + ui.values[1]);
         }
@@ -131,6 +131,65 @@ Highcharts.getJSON('http://localhost:3000/getinflows', function (data) {
 
         series: [{
             name: 'INFLOWS',
+            data: data
+        }],
+
+        responsive: {
+            rules: [{
+                condition: {
+                    maxWidth: 300
+                },
+                chartOptions: {
+                    legend: {
+                        layout: 'horizontal',
+                        align: 'center',
+                        verticalAlign: 'bottom'
+                    }
+                }
+            }]
+        }
+
+    });
+}
+);
+
+Highcharts.getJSON('http://localhost:3000/getoutflows', function (data) {
+
+    Highcharts.chart('chart3', {
+
+        title: {
+            text: 'FDI Outflows Current USD of Each Year'
+        },
+
+        yAxis: {
+            title: {
+                text: 'FDI Outflows Current USD'
+            }
+        },
+
+        xAxis: {
+            accessibility: {
+                rangeDescription: 'Range: 1960 to 2020'
+            }
+        },
+
+        legend: {
+            layout: 'vertical',
+            align: 'right',
+            verticalAlign: 'middle'
+        },
+
+        plotOptions: {
+            series: {
+                label: {
+                    connectorAllowed: false
+                },
+                pointStart: 1960
+            }
+        },
+
+        series: [{
+            name: 'OUTFLOWS',
             data: data
         }],
 

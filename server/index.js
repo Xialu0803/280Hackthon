@@ -47,11 +47,34 @@ app.get('/getgdps', (req, res) => {
     })
 });
 
-//getGDP
+//getFDIInflows
 app.get('/getinflows', (req, res) => {
     console.log(`Received get_records request ${req}`);
     let s1 = 'India';
     let sql = 'SELECT ' + s1 + ' FROM inflows';
+    const result = [];
+    let query = db.query(sql, (err, results) => {
+        if (err) {
+            console.log(err);
+        }
+        else {
+            res.header("Access-Control-Allow-Origin", "*");
+            for (let i = 0; i < results.length; i++) {
+                if (results[i][s1] == "") {
+                    result[i] = 0;
+                } else
+                result[i] = parseFloat(results[i][s1]);
+            }
+            res.send(result);
+            //var rows = JSON.parse(JSON.stringify(result[0]));
+        }
+    })
+});
+
+app.get('/getoutflows', (req, res) => {
+    console.log(`Received get_records request ${req}`);
+    let s1 = 'India';
+    let sql = 'SELECT ' + s1 + ' FROM outflows';
     const result = [];
     let query = db.query(sql, (err, results) => {
         if (err) {
