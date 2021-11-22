@@ -37,7 +37,7 @@ function drop(ev) {
 
 Highcharts.getJSON('http://localhost:3000/getgdps', function (data) {
 
-    Highcharts.chart('chart', {
+    Highcharts.chart('chart1', {
 
         title: {
             text: 'GDP Current USD of Each Year'
@@ -72,6 +72,65 @@ Highcharts.getJSON('http://localhost:3000/getgdps', function (data) {
 
         series: [{
             name: 'GDP',
+            data: data
+        }],
+
+        responsive: {
+            rules: [{
+                condition: {
+                    maxWidth: 300
+                },
+                chartOptions: {
+                    legend: {
+                        layout: 'horizontal',
+                        align: 'center',
+                        verticalAlign: 'bottom'
+                    }
+                }
+            }]
+        }
+
+    });
+}
+);
+
+Highcharts.getJSON('http://localhost:3000/getinflows', function (data) {
+
+    Highcharts.chart('chart2', {
+
+        title: {
+            text: 'FDI Inflows Current USD of Each Year'
+        },
+
+        yAxis: {
+            title: {
+                text: 'FDI Inflows Current USD'
+            }
+        },
+
+        xAxis: {
+            accessibility: {
+                rangeDescription: 'Range: 1960 to 2020'
+            }
+        },
+
+        legend: {
+            layout: 'vertical',
+            align: 'right',
+            verticalAlign: 'middle'
+        },
+
+        plotOptions: {
+            series: {
+                label: {
+                    connectorAllowed: false
+                },
+                pointStart: 1960
+            }
+        },
+
+        series: [{
+            name: 'INFLOWS',
             data: data
         }],
 
